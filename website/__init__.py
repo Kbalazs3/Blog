@@ -4,7 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from os import path
 
 from .views import views
-from .auths import import auths
+from .auths import auths
 
 
 def create_app():
