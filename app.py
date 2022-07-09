@@ -1,10 +1,6 @@
-from flask import Flask, render_template
+from website import create_app
 
-
-app = Flask('Blog')
-
-
-
+app = create_app()
 
 
 def main():
