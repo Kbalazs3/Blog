@@ -1,0 +1,47 @@
+
+#subtitles {
+    text-align: center;
+    color: royalblue;
+}
+
+.login_input {
+    border: 1px grey solid;
+    border-radius: 3px;
+    box-sizing: border-box;
+    font-size: 20px;
+
+}
+
+.login_input:focus {
+    background-color: lightblue;
+    border: 1px royalblue solid;
+}
+
+.login_labels {
+    font-size: 20px;
+    font-weight: bolder;
+}
+
+.submit_button {
+    border-radius: 8px;
+    border-color: white;
+    background-color: royalblue;
+    color: white;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.login_window_div {
+    width: 50%;
+    height: 150px;
+    border: 2px royalblue solid;
+    border-radius: 4px;
+    position: relative;
+    left: 30%;
+    top: 50%;
+    margin-top: 0;
+    margin-left: 0;
+
+}
+
+

@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, redirect, url_for
 
 
 auths = Blueprint("auths", __name__)
@@ -6,15 +6,15 @@ auths = Blueprint("auths", __name__)
 
 @auths.route("/login")
 def log_in():
-    return "log in"
+    return render_template("login.html")
 
 
 @auths.route("/sign-up")
 def sign_up():
-    return "sign up"
+    return render_template("signup.html")
 
 
 @auths.route("/log-out")
 def log_out():
-    return "log out"
+    return redirect(url_for("views.index"))
 
