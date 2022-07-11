@@ -32,13 +32,13 @@
 }
 
 .login_window_div {
-    width: 50%;
-    height: 200px;
+    width: 45%;
+    height: 300px;
     border: 2px royalblue solid;
     border-radius: 4px;
     position: relative;
-    left: 30%;
-    top: 50%;
+    left: 32%;
+    top: 27%;
     margin-top: 0;
     margin-left: 0;
 
