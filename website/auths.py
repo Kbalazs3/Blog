@@ -6,13 +6,17 @@ auths = Blueprint("auths", __name__)
 
 @auths.route("/login", methods=["GET", "POST"])
 def log_in():
+    login_email = request.form.get("email")
+    login_password = request.form.get("password")
     return render_template("login.html")
 
 
 @auths.route("/sign-up", methods=["GET", "POST"])
 def sign_up():
     sign_up_email = request.form.get("sign_up_email")
-    print(sign_up_email)
+    sign_up_username = request.form.get("username")
+    sign_up_password_first = request.form.get("sign_up_password")
+    sign_up_pw_again = request.form.get("second_password")
     return render_template("signup.html")
 
 
