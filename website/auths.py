@@ -21,6 +21,7 @@ def sign_up():
         sign_up_email = request.form.get("sign_up_email")
         sign_up_username = request.form.get("username")
         sign_up_password_first = request.form.get("sign_up_password")
+        is_pw_valid = password_checker(sign_up_password_first)
         sign_up_pw_again = request.form.get("second_password")
         # Check if user exist, and password is appropriate:
         email_exist = User.query.filter_by(email=sign_up_email).first()
@@ -33,31 +34,35 @@ def sign_up():
             flash('Username is too short! Minimum 2 characters please!', category='error')
         elif sign_up_password_first != sign_up_pw_again:
             flash("Passwords don't match!", category='error')
-        elif len(sign_up_password_first) > 6 and
-
-
+        elif not is_pw_valid:
+            flash('Password not correct!\nRequirements:\n\t - Min 6, max 20 characters\n\t - Min 1 spec. character\n\t - min 1 lowercase and min 1 uppercase letter\n\t - Min 1 digit', category='error')
+        
 
 def password_checker(sign_up_pw):
-    special_chars = ['$', '@', '#', '%']
+    special_chars = ['$', '@', '#', '%', ',', '.', ':', '_', '-', '*', ';', '?']
     is_pw_valid = True
 
     if len(sign_up_pw) < 6:
         is_pw_valid = False
+        print("Too short pw! Please min 6 characters")
     if len(sign_up_pw) > 20:
         is_pw_valid = False
+        print("too long pw, max 20 chars")
     if not any(char.isdigit() for char in sign_up_pw):
         is_pw_valid = False
+        print("It has to contain min one digit!")
     if not any(char.isupper() for char in sign_up_pw):
         is_pw_valid = False
+        print("min one uppercase letter!")
     if not any(char.islower() for char in sign_up_pw):
         is_pw_valid = False
+        print("min 1 lowercase please!")
     if not any(char in special_chars for char in sign_up_pw):
         is_pw_valid = False
+        print("please min 1 spec. char!")
 
     return is_pw_valid
 
-
-password_checker(sign_up_pw="test")
 
 @auths.route("/log-out")
 def log_out():
