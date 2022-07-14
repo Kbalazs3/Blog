@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
-from flask_login import login_user, login_required, logout_user
+from flask_login import login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
 from .modules import User
@@ -9,8 +9,21 @@ auths = Blueprint("auths", __name__)
 
 @auths.route("/login", methods=["GET", "POST"])
 def log_in():
-    login_email = request.form.get("email")
-    login_password = request.form.get("password")
+    if request.method == "POST":
+        login_email = request.form.get("email")
+        login_password = request.form.get("password")
+
+        user = User.query.filter_by(email=login_email).first()
+        if user:
+            if check_password_hash(user.password, login_password):
+                login_user(user, remember=True)
+                flash('You have logged in', category='success')
+                return redirect(url_for("views.index"))
+            else:
+                flash('Incorrect password or email address', category='error')
+        else:
+            flash('User account does not exist!', category='error')
+
     return render_template("login.html")
 
 
@@ -42,9 +55,10 @@ def sign_up():
         elif not is_pw_valid:
             flash('Password not correct!\nRequirements:\n\t - Min 6, max 20 characters\n\t - Min 1 spec. character\n\t - min 1 lowercase and min 1 uppercase letter\n\t - Min 1 digit', category='error')
         else:
-            new_user = User(email=sign_up_email, username=sign_up_username, password=sign_up_pw_again)
+            new_user = User(email=sign_up_email, username=sign_up_username, password=generate_password_hash(sign_up_pw_again, method='sha256'))
             db.session.add(new_user)
             db.session.commit()
+            login_user(new_user, remember=True)
             flash('User account created!')
             return redirect(url_for("views.index"))
 
@@ -90,6 +104,8 @@ def sign_up_email_checker(sign_up_email):
 
 
 @auths.route("/log-out")
+@login_required
 def log_out():
+    logout_user()
     return redirect(url_for("views.index"))
 
