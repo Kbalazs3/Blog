@@ -35,6 +35,7 @@ def sign_up_email_checker(sign_up_email):
 
     if len(email_split[0]) < 2:
         is_email_valid = False
+
     return is_email_valid
 
 
