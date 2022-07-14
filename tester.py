@@ -1,4 +1,4 @@
-# Password checker function tested here, itt will be removed probably.
+# Password checker function tested here, itt will be removed probably from here.
 def password_checker(sign_up_pw):
     special_chars = ['$', '@', '#', '%', ',', '.', ':', '_', '-', '*', ';', '?']
     is_pw_valid = True
@@ -25,4 +25,19 @@ def password_checker(sign_up_pw):
     return is_pw_valid
 
 
-print(password_checker(sign_up_pw="Testpw_123"))
+def sign_up_email_checker(sign_up_email):
+    is_email_valid = True
+
+    if len(sign_up_email) < 8:
+        is_email_valid = False
+
+    email_split = sign_up_email.split('@')
+
+    if len(email_split[0]) < 2:
+        is_email_valid = False
+    return is_email_valid
+
+
+
+
+

@@ -36,7 +36,7 @@ def sign_up():
             flash("Passwords don't match!", category='error')
         elif not is_pw_valid:
             flash('Password not correct!\nRequirements:\n\t - Min 6, max 20 characters\n\t - Min 1 spec. character\n\t - min 1 lowercase and min 1 uppercase letter\n\t - Min 1 digit', category='error')
-        
+
 
 def password_checker(sign_up_pw):
     special_chars = ['$', '@', '#', '%', ',', '.', ':', '_', '-', '*', ';', '?']
