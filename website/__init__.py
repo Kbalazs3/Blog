@@ -3,8 +3,8 @@ from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 from os import path
 
-from .views import views
-from .auths import auths
+#from .views import views
+#from .auths import auths
 
 db = SQLAlchemy()
 DB_NAME = "database.db"
@@ -12,9 +12,13 @@ DB_NAME = "database.db"
 
 def create_app():
     app = Flask(__name__)
-    app.config['SECRET KEY'] = "Ruby"
+    app.config['SECRET_KEY'] = "Ruby"
     app.config["SQL_ALCHEMY_URI"] = f'sqlite:///{DB_NAME}'
     db.init_app(app)
+
+    from .views import views
+    from .auths import auths
+
     app.register_blueprint(views, url_prefix="/")
     app.register_blueprint(auths, url_prefix="/")
     from .modules import User
@@ -26,6 +30,7 @@ def create_app():
     @login_manager.user_loader
     def load_user(id):
         return User.query.get(int(id))
+
     return app
 
 
