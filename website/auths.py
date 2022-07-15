@@ -29,9 +29,7 @@ def log_in():
 
 @auths.route("/sign-up", methods=["GET", "POST"])
 def sign_up():
-    if request.method == "GET":
-        return render_template("signup.html")
-    elif request.method == "POST":
+    if request.method == "POST":
         # User sign up sent form data:
         sign_up_email = request.form.get("sign_up_email")
         sign_up_username = request.form.get("username")
@@ -61,6 +59,8 @@ def sign_up():
             login_user(new_user, remember=True)
             flash('User account created!')
             return redirect(url_for("views.index"))
+
+    return render_template("signup.html")
 
 
 def password_checker(sign_up_pw):
